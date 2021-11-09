@@ -10,7 +10,7 @@ provider "aws" {
 
 ## Create Labels
 module "quickstart_sns_label" {
-  source    = "aws-quickstart/label/aws"
+  source    = "aws-ia/label/aws"
   version   = "0.0.2"
   region    = var.region
   namespace = var.namespace
