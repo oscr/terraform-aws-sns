@@ -1,6 +1,10 @@
+terraform {
+  required_version = ">= 1.0.10"
+}
+
 data "aws_caller_identity" "current" {}
 
-## Create SNS Topic 
+## Create SNS Topic
 resource "aws_sns_topic" "sns_topic" {
   name              = var.topic_name
   display_name      = var.display_name
@@ -8,7 +12,7 @@ resource "aws_sns_topic" "sns_topic" {
   tags              = var.tags
 }
 
-## Create SNS Policy 
+## Create SNS Policy
 resource "aws_sns_topic_policy" "sns_topic_policy" {
   arn = aws_sns_topic.sns_topic.arn
   policy = templatefile("${path.module}/templates/sns_${var.access_type}_policy.tpl",
