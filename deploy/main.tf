@@ -9,28 +9,29 @@ provider "aws" {
 }
 
 ## Create Labels
-module "quickstart_sns_label" {
-  source    = "aws-ia/label/aws"
-  version   = "0.0.2"
-  region    = var.region
-  namespace = var.namespace
-  env       = var.environment
-  account   = var.account
-  name      = var.project_name
-  delimiter = var.delimiter
-  tags = tomap({
+module "labels" {
+  source     = "aws-ia/label/aws"
+  version    = "0.0.3"
+  region     = var.region
+  namespace  = var.namespace
+  env        = var.environment
+  account    = var.account
+  name       = var.name
+  delimiter  = var.delimiter
+  attributes = var.attributes
+  tags = merge(var.tags, {
     "deployed_by" = "quickstart-terraform"
-    "project"     = var.project_name
+    "project"     = var.name
   })
 }
 
 ## Create SNS
 module "qs_sns" {
   source            = "../"
-  topic_name        = module.quickstart_sns_label.id
+  topic_name        = module.labels.id
+  tags              = module.labels.tags
   display_name      = var.display_name
   kms_master_key_id = var.kms_master_key_id
-  tags              = module.quickstart_sns_label.tags
   access_type       = var.access_type
   protocol          = var.protocol
   endpoint          = var.endpoint

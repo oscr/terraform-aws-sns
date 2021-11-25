@@ -1,9 +1,12 @@
 variable "region" {
-  default = "us-east-1"
+  description = "What region to create resources in."
+  type        = string
+  default     = "us-east-1"
 }
 
 variable "namespace" {
   description = "namespace, which could be your organiation name, e.g. amazon."
+  type        = string
   default     = "myorg"
 }
 
@@ -13,34 +16,34 @@ variable "environment" {
   description = "Environment area, e.g. prod or preprod."
 }
 
-variable "name" {
-  description = "deployment name"
-  default     = "sns"
-}
-
 variable "delimiter" {
   description = "delimiter, which could be used between name, namespace and env."
+  type        = string
   default     = "-"
 }
 
 variable "attributes" {
-  default     = []
   description = "atttributes, which could be used for additional attributes."
+  type        = list(any)
+  default     = []
 }
 
 variable "account" {
   description = "account, which could be AWS Account Name or Number."
+  type        = string
   default     = "myaccount"
 }
 
-variable "project_name" {
+variable "name" {
   description = "stack name"
+  type        = string
   default     = "myproj"
 }
 
 variable "tags" {
-  default     = {}
   description = "tags, which could be used for additional tags."
+  type        = map(string)
+  default     = {}
 }
 
 ### SNS Variabls ###
